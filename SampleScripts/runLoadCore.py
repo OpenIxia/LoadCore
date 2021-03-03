@@ -9,7 +9,7 @@ Requirements
    - Load Core license server
    - Load Core authToken
    - Load Core saved config file: fullcore-simulation.json or use your saved config file
-   - Load Core logos for the report: In LoadCoreLogs folder
+   - Load Core logos for the report: In LoadCoreLogos folder
    - LoadCoreMWAssistant.py
    - LoadcoreAgentAssistant.py
 
@@ -40,16 +40,16 @@ deleteSession = True
 authToken = 'JNNUtp_447aM7DiXG7hBNbVpB3oXGyA7RG-MF0rPtBQ.WVVMzjrkA9l_MVW6IDlxOyjRGUXS2NR6JPyNvDhf0Zc'
 
 # Where the keysight logos are stored for the html report
-logoFolder = '/home/hgee/OpenIxiaGit/LoadCore/SampleScripts/LoadCoreLogos'
+logoFolder = '/GitLabProjects/LoadCore/PyTest/LoadCoreLogos'
 
 # Where to put the results at the end of the test
-resultsFolder = '/home/hgee/OpenIxiaGit/LoadCore/SampleScripts/resultsFolder'
+resultsFolder = '/GitLabProjects/LoadCore/resultsFolder'
 
 # LoadCore saved config files are in .json format.
 configName = "fullcore-simulation.json"
 
 # The path to the saved .json config file to load.
-configPath = "/home/hgee/OpenIxiaGit/LoadCore/SampleScripts/{}".format(configName)
+configPath = "/GitLabProjects/LoadCore/PyTest/LoadCoreConfigs/{}".format(configName)
 
 try:
     loadCoreObj = MW(host=mwIp, port=443, authToken=authToken, licenseServer=licenseServerIp,
