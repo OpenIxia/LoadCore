@@ -101,7 +101,17 @@ class Utils(Requests):
         else:
             print("Timed out after %s seconds" % (10 - timeout))
             return False
-        
+
+    def createFolder(self, fullPath):
+        """
+        Create a folder if it doesn't exists
+
+        Parameter
+           fullPath <str>: The full path and the folder name
+        """
+        if not os.path.exists(fullPath):
+            os.makedirs(resultsFolder)
+
 class MW(Utils):
     def __init__(self, host='localhost', port=443, authToken=None, licenseServer=None, protocol='https', enablehttp2=False, logLevel='debug'):
 
@@ -512,6 +522,9 @@ class MW(Utils):
 
     def createHTMLreport(self,  listOfStatistics, reportName, startTime, endTime,
                          logoFolder=None, resultFolder=None):
+        if resultFolder:
+            self.createFolder(resultFolder)
+            
         html = self.getHTML(listOfStatistics, reportName, startTime, endTime)
         foldername = 'LoadCore_{}_{}/'.format(reportName, startTime.strftime('%Y%m%d_%H%M%S'))
         destinationPath = '{}/{}/'.format(resultFolder, foldername)
@@ -688,8 +701,10 @@ class MW(Utils):
 
         return html
 
-
     def getPDFreport(self,  folderName, startTime, resultFolder=None, wait=40, statusCode=202):
+        if resultFolder:
+            self.createFolder(resultFolder)
+
         testID = self.getTestId()
 
         response = self.post('/api/v2/results/{0}/operations/generate-pdf'.format(testID), headers=self.headers)
@@ -727,6 +742,9 @@ class MW(Utils):
         return filename
 
     def getCSVs(self, folder, startTime, resultFolder=None, wait=40, statusCode=202):
+        if resultFolder:
+            self.createFolder(resultFolder)
+
         testID = self.getTestId()
 
         response = self.post('/api/v2/results/{0}/operations/generate-csv'.format(testID), headers=self.headers)
@@ -763,6 +781,9 @@ class MW(Utils):
         return filename
     
     def getCapturedLogs(self, resultFolder=None, wait=40, statusCode=202):
+        if resultFolder:
+            self.createFolder(resultFolder)
+
         testID = self.getTestId()
 
         response = self.post('/api/v2/results/{0}/operations/export-results'.format(testID), headers=self.headers)
